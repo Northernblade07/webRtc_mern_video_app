@@ -8,11 +8,29 @@ const Home = () => {
     const [roomId, setRoomId] = useState('');
 
     const navigate = useNavigate()
-    const joinRoom = ()=>{
-        if(!roomId) return;
-        navigate(`/room/${roomId}`)
+    const joinRoom = (Id = roomId)=>{
+        console.log(roomId)
+        console.log(Id)
+        if(!Id) return;
+        if(Id){
+            navigate(`/room/${Id}`)
+        }
 
     }
+
+    const generateRandomString = (length=6) => {
+  const charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charSet.length);
+    result += charSet.charAt(randomIndex);
+  }
+   setRoomId(result);
+
+   joinRoom(result)
+   console.log(roomId)
+};
+
   return (
     <div className='min-h-screen relative'>
 
@@ -61,15 +79,25 @@ const Home = () => {
                 />
 
 
+                    <button
+                className="w-full mt-5 py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-cyan-500 font-semibold hover:scale-105 transition-all duration-300 animate-glow"
+                onClick={()=>generateRandomString()}
+                >
+                    Create an Instant Meeting
+                </button>
+
+
                 <button
                 className="w-full mt-5 py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-cyan-500 font-semibold hover:scale-105 transition-all duration-300 animate-glow"
-                onClick={joinRoom}
+                onClick={()=>joinRoom()}
                 >
                     Join Meeting
                 </button>
             </motion.div>
 
         </div>
+
+        
 
     </div>
   )
